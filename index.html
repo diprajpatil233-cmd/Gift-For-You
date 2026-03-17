@@ -1,95 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Very Important Question...</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #ffe4e1; /* Light romantic pink */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            overflow: hidden; /* Stops scrollbars from appearing when the button moves */
-        }
-
-        h1 {
-            color: #d81b60;
-            margin-bottom: 30px;
-            text-align: center;
-            font-size: 40px;
-        }
-
-        .button-container {
-            display: flex;
-            gap: 20px;
-        }
-
-        button {
-            padding: 15px 30px;
-            font-size: 20px;
-            font-weight: bold;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.1s;
-        }
-
-        #yesBtn {
-            background-color: #4CAF50;
-            color: white;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        #yesBtn:hover {
-            transform: scale(1.1);
-        }
-
-        #noBtn {
-            background-color: #f44336;
-            color: white;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-    </style>
-</head>
-<body>
-
-    <!-- The Big Question -->
-    <h1>Will you marry me? 💍</h1>
-    
-    <div class="button-container">
-        <button id="yesBtn">Yes</button>
-        <button id="noBtn">No</button>
-    </div>
-
-    <script>
+<script>
         const noButton = document.getElementById('noBtn');
         const yesButton = document.getElementById('yesBtn');
 
-        // This makes the "No" button run away when hovered
-        noButton.addEventListener('mouseover', () => {
+        // This makes the "No" button run away when hovered or tapped
+        noButton.addEventListener('mouseover', moveButton);
+        noButton.addEventListener('touchstart', moveButton); // Added touch support for mobile!
+
+        function moveButton(e) {
+            e.preventDefault(); // Stops the button from accidentally being clicked on mobile
             const x = Math.random() * (window.innerWidth - noButton.offsetWidth);
             const y = Math.random() * (window.innerHeight - noButton.offsetHeight);
 
             noButton.style.position = 'absolute';
             noButton.style.left = `${x}px`;
             noButton.style.top = `${y}px`;
-        });
+        }
 
         // What happens when she finally clicks "Yes"
         yesButton.addEventListener('click', () => {
+            // This new HTML is mobile-friendly and reactive
             document.body.innerHTML = `
-                <div style="text-align: center; margin-top: 20%;">
-                    <h1 style="color: #d81b60; font-size: 50px;">I knew you'd say Yes! Let's get married! 💒❤️</h1>
-                    <img src="https://media.giphy.com/media/MeIucAjPKoA120R7sN/giphy.gif" alt="Happy Dance" style="border-radius: 10px;">
-                </div>
+                <h1 style="color: #d81b60; font-size: clamp(30px, 8vw, 50px); text-align: center; padding: 0 20px; margin-bottom: 20px;">
+                    I knew you'd say Yes! Let's get married! 💒❤️
+                </h1>
+                <img src="https://media.giphy.com/media/MeIucAjPKoA120R7sN/giphy.gif" alt="Happy Dance" style="max-width: 90%; height: auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
             `;
         });
     </script>
-
-</body>
-</html>
